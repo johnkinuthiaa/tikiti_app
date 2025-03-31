@@ -31,6 +31,22 @@ public class UserServiceImplementation implements UsersService {
         UserDto userDto =new UserDto();
         Users newUser =new Users();
 
+//        check if user already exists
+        var existingUserByEmail =userExistsByEmail(user.getEmail());
+        if(existingUserByEmail){
+            response.setMessage("User with the email "+user.getEmail()+" already exists...Please log in " +
+                    "to your account or try a different email");
+            response.setStatusCode(409);
+            return response;
+        }
+        var existingUserByUsername =userExistsByUsername(user.getUsername());
+        if(existingUserByUsername){
+            response.setMessage("User with the username "+user.getUsername()+" already exists...Please log in " +
+                    "to your account or try a different unique username");
+            response.setStatusCode(409);
+            return response;
+        }
+
 //        creating the new user
         newUser.setEmail(user.getEmail());
         newUser.setRole(user.getRole());
@@ -57,6 +73,12 @@ public class UserServiceImplementation implements UsersService {
         UserResponse response =new UserResponse();
         UserDto userDto =new UserDto();
         var allUsers =repository.findAll();
+
+        if(allUsers.isEmpty()){
+            response.setMessage("No user present in the database");
+            response.setStatusCode(404);
+            return response;
+        }
 
         List<UserDto> userDtoList =new ArrayList<>();
 
@@ -123,5 +145,16 @@ public class UserServiceImplementation implements UsersService {
         response.setMessage("User with id "+user.get().getId());
         response.setStatusCode(200);
         return response;
+    }
+//    checks for existingUser by Email and username
+
+    public Boolean userExistsByEmail(String email){
+        Users existingUser =repository.findByEmail(email);
+
+        return existingUser != null;
+    }
+    public Boolean userExistsByUsername(String username){
+        Users existingUser =repository.findByUsername(username);
+        return existingUser != null;
     }
 }
