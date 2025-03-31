@@ -21,7 +21,7 @@ public class VenueServiceImplementation implements VenueService {
     @Override
     public VenueResponse createNewVenue(Venue venue) {
         VenueResponse response =new VenueResponse();
-        var existingVenue =existingVenue(venue.getName());
+        var existingVenue =existingVenue(venue.getName().strip());
         if(existingVenue){
             response.setMessage("venue with the name "+venue.getName()+" already exists");
             response.setStatusCode(409);
