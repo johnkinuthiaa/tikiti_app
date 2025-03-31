@@ -24,7 +24,7 @@ public class Users {
     private String username;
     private String email;
     private String password;
-    private LocalDateTime createdOn;
+    private LocalDateTime createdOn =LocalDateTime.now();
     private String role;
 
 }
