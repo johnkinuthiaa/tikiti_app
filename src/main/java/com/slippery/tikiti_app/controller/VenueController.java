@@ -5,10 +5,7 @@ import com.slippery.tikiti_app.models.Venue;
 import com.slippery.tikiti_app.service.VenueService;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/venue")
@@ -23,28 +20,37 @@ public class VenueController{
         var createdVenue =service.createNewVenue(venue);
         return ResponseEntity.status(HttpStatusCode.valueOf(createdVenue.getStatusCode())).body(createdVenue);
     }
-
-    public VenueResponse getVenueById(Long id) {
-        return null;
+    @GetMapping("/find/id")
+    public ResponseEntity<VenueResponse> getVenueById(@RequestParam Long id) {
+        var existingVenue =service.getVenueById(id);
+        return ResponseEntity.ok(existingVenue);
+    }
+    @GetMapping("/find/name")
+    public ResponseEntity<VenueResponse> getVenueByName(@RequestParam String name) {
+        var venue =service.getVenueByName(name);
+        return ResponseEntity.ok(venue);
+    }
+    @GetMapping("/find/location")
+    public ResponseEntity<VenueResponse> getVenueByLocation(@RequestParam String location) {
+        var venue =service.getVenueByLocation(location);
+        return  ResponseEntity.ok(venue);
     }
 
-    public VenueResponse getVenueByName(String name) {
-        return null;
+    @DeleteMapping("/{venueId}/delete")
+    public ResponseEntity<VenueResponse> deleteVenueById(@PathVariable Long venueId) {
+        var deleteVenue =service.deleteVenueById(venueId);
+        return ResponseEntity.ok(deleteVenue);
     }
 
-    public VenueResponse getVenueByLocation(String location) {
-        return null;
+    @GetMapping("/get/all")
+    public ResponseEntity<VenueResponse> getAllVenues() {
+        var allVenues =service.getAllVenues();
+        return ResponseEntity.ok(allVenues);
     }
+    @DeleteMapping("/delete/all")
+    public ResponseEntity<VenueResponse> deleteAllVenue(@RequestParam Long adminId) {
+        var message =service.deleteAllVenue(adminId);
 
-    public VenueResponse deleteVenueById(Long venueId) {
-        return null;
-    }
-
-    public VenueResponse getAllVenues() {
-        return null;
-    }
-
-    public VenueResponse deleteAllVenue(Long adminId) {
-        return null;
+        return ResponseEntity.ok(message);
     }
 }

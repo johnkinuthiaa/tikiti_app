@@ -29,3 +29,14 @@ Content-Type: application/stream+json
 }
 
 ###
+GET http://localhost:8080/api/v1/venue/find/id?id=1
+
+###
+GET http://localhost:8080/api/v1/venue/find/name?name=anga
+
+###
+GET http://localhost:8080/api/v1/venue/find/location?location=Nairobi
+
+
+###
+DELETE http://localhost:8080/api/v1/venue/2/delete
