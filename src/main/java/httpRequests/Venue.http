@@ -1,0 +1,31 @@
+POST http://localhost:8080/api/v1/venue/create
+Content-Type: application/stream+json
+
+{
+  "name": "anga max theater",
+  "capacity": 200,
+  "location": "Nairobi,Diamond Plaza 2",
+  "venueImage": "https://lh5.googleusercontent.com/p/AF1QipMXxLv62QtSnbOA99Ubr7qUrrpSvia878K9Q8A=w260-h175-n-k-no",
+  "seatsInVenue": [{
+      "seatNumber": "1f",
+      "isAvailable": true
+    },{
+    "seatNumber": "2f",
+    "isAvailable": true
+  },{
+    "seatNumber": "3f",
+    "isAvailable": true
+  },
+    {
+      "seatNumber": "4f",
+      "isAvailable": true
+    },
+    {
+      "seatNumber": "5f",
+      "isAvailable": true
+    }
+  ]
+
+}
+
+###

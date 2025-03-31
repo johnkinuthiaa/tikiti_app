@@ -1,5 +1,7 @@
 package com.slippery.tikiti_app.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,5 +21,6 @@ public class Seat {
     private String seatNumber;
     private Boolean isAvailable;
     @ManyToOne
+    @JsonBackReference
     private Venue venue;
 }
